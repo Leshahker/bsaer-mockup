@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Библиотека — БОАР</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,500;0,7..72,600;0,7..72,700;1,7..72,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="proto">
+    <div class="wrap">
+      <span><strong>Макет для согласования</strong> · разделы 2–3 заполнены по перечню заказчика · файлы пока без ссылок</span>
+      <span>Библиотека</span>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="index.html">
+        <img class="logo-mark" src="img/logo.png?v=2" width="48" height="48" alt="" />
+        <span class="logo-text"><b>БОАР</b><span>Общество АиР</span></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu aria-expanded="false" aria-label="Меню">☰</button>
+      <nav class="primary">
+        <a href="index.html">Главная</a>
+        <a href="about.html">Общество</a>
+        <a href="events.html">События</a>
+        <a href="library.html" aria-current="page">Библиотека</a>
+        <a href="patients.html">Пациентам</a>
+      </nav>
+      <a class="btn btn-ghost header-cta" href="/cabinet">Кабинет</a>
+      <a class="btn header-cta" href="join.html">Вступить</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="wrap">
+        <p class="crumbs"><a href="index.html">Главная</a> / Библиотека</p>
+        <p class="eyebrow">Каталог</p>
+        <h1>Библиотека общества</h1>
+        <p class="lead">Шесть разделов: книги, протоколы, санэпид режим, статьи, рекомендации ФАР и видеоархив. Навигация слева — переключение без перезагрузки.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="wrap library-layout" data-library>
+        <aside class="library-nav" aria-label="Разделы библиотеки">
+          <button type="button" class="lib-link is-on" data-section="books">
+            <span class="lib-num">01</span>
+            <span>Книги</span>
+          </button>
+          <button type="button" class="lib-link" data-section="protocols">
+            <span class="lib-num">02</span>
+            <span>Протоколы</span>
+          </button>
+          <button type="button" class="lib-link" data-section="sanepid">
+            <span class="lib-num">03</span>
+            <span>Санэпид режим</span>
+          </button>
+          <button type="button" class="lib-link" data-section="articles">
+            <span class="lib-num">04</span>
+            <span>Статьи</span>
+          </button>
+          <button type="button" class="lib-link" data-section="far">
+            <span class="lib-num">05</span>
+            <span>Рекомендации ФАР</span>
+          </button>
+          <button type="button" class="lib-link" data-section="video">
+            <span class="lib-num">06</span>
+            <span>Видеоархив</span>
+          </button>
+        </aside>
+
+        <div class="library-panels">
+          <!-- 01 Книги -->
+          <div class="lib-panel" data-panel="books" hidden>
+            <header class="lib-panel-head">
+              <p class="eyebrow">01</p>
+              <h2>Книги</h2>
+              <p class="muted">Подборка пособий по анестезиологии и реаниматологии. Пока — внешний каталог; размещение копий на сайте БОАР — после согласования с правообладателями.</p>
+            </header>
+
+            <a class="ext-book" href="https://nsicu.ru/books" target="_blank" rel="noopener noreferrer">
+              <div class="ext-book-top">
+                <span class="ext-book-badge">Внешний каталог</span>
+                <span class="ext-book-host">nsicu.ru</span>
+              </div>
+              <h3>Книги отделения реанимации НИИ им. Н. Н. Бурденко</h3>
+              <p>Открытый каталог: ИВЛ, шок, трахеостомия, нейрореанимация, алгоритмы критических ситуаций и другие пособия. Переход на сайт-источник — без копирования файлов на сервер БОАР.</p>
+              <div class="ext-book-foot">
+                <span>Открыть каталог книг</span>
+                <span class="ext-book-arrow" aria-hidden="true">↗</span>
+              </div>
+            </a>
+            <p class="note" style="margin-top:16px">Макет для показа заказчику. Решение о прямом размещении книг на сайте общества — после разговора с профессором.</p>
+          </div>
+
+          <!-- 02 Протоколы -->
+          <div class="lib-panel" data-panel="protocols" hidden>
+            <header class="lib-panel-head">
+              <p class="eyebrow">02</p>
+              <h2>Протоколы</h2>
+              <p class="muted">Клинические протоколы и инструкции по оказанию помощи. Ссылки на PDF появятся после согласования.</p>
+            </header>
+
+            <div class="doc-row">
+              <div>
+                <strong>Клинический протокол оказания скорой (неотложной) медицинской помощи взрослому населению</strong>
+                <span>Приказ Министерства здравоохранения Республики Беларусь · реквизиты уточняются (в перечне текст обрывается)</span>
+              </div>
+              <span>Протокол</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Клинические протоколы диагностики и лечения заболеваний системы кровообращения</strong>
+                <span>Постановление Минздрава РБ, 06 июня 2017 г., № 59</span>
+              </div>
+              <span>Протокол</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Клинические протоколы «Оказание медицинской помощи пациентам в критических для жизни состояниях»</strong>
+                <span>Постановление Минздрава РБ, 23 августа 2021 г., № 99</span>
+              </div>
+              <span>Протокол</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Инструкция по оказанию медицинской помощи пациентам с острым нарушением мозгового кровообращения («Дорожная карта»)</strong>
+                <span>Приказ Минздрава РБ, 24 января 2018 г., № 47</span>
+              </div>
+              <span>Инструкция</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Клинический протокол «Оказание экстренной и неотложной медицинской помощи пациентам детского возраста»</strong>
+                <span>Постановление Минздрава РБ, 17 августа 2023 г., № 118 (ред. от 2 мая 2025 г., № 40)</span>
+              </div>
+              <span>Протокол</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Инструкция по выполнению терапевтических лечебных и диагностических манипуляций</strong>
+                <span>Приказ Минздрава РБ, 14 мая 2020 г., № 530</span>
+              </div>
+              <span>Инструкция</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Инструкции по выполнению инъекций и внутривенных инфузий</strong>
+                <span>Приказ Минздрава РБ, 27 ноября 2017 г., № 1355</span>
+              </div>
+              <span>Инструкция</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Типовое положение о трансфузиологической помощи</strong>
+                <span>Приказ Минздрава РБ, 11 декабря 2019 г., № 1486</span>
+              </div>
+              <span>Положение</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Формы первичной учётной медицинской документации</strong>
+                <span>Приказ Минздрава РБ, 15 декабря 2023 г., № 1853</span>
+              </div>
+              <span>Документация</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Инструкция о порядке организации оказания медицинской помощи лицам, инфицированным ВИЧ</strong>
+                <span>Постановление Минздрава РБ, 8 ноября 2017 г., № 93</span>
+              </div>
+              <span>Инструкция</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+          </div>
+
+          <!-- 03 Санэпид режим -->
+          <div class="lib-panel" data-panel="sanepid" hidden>
+            <header class="lib-panel-head">
+              <p class="eyebrow">03</p>
+              <h2>Санэпид режим</h2>
+              <p class="muted">Нормативные правовые акты, санитарные нормы и правила, дезинфекция, стерилизация, прививки и противоэпидемические мероприятия.</p>
+            </header>
+
+            <h3 class="lib-subhead">Основы и организация</h3>
+            <div class="doc-row">
+              <div>
+                <strong>Закон «О здравоохранении»</strong>
+                <span>Закон Республики Беларусь, 18 июня 1993 г., № 2435-XII (ред. от 8 июля 2024 г., № 26-З)</span>
+              </div>
+              <span>Закон</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Государственная программа «Здоровье народа и демографическая безопасность» на 2021–2025 годы</strong>
+                <span>Постановление Совета Министров РБ, 19 января 2021 г., № 28 (ред. от 18 декабря 2024 г., № 965)</span>
+              </div>
+              <span>Программа</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Закон «О санитарно-эпидемиологическом благополучии населения»</strong>
+                <span>Закон Республики Беларусь, 07 января 2012 г., № 340-З (ред. от 10 октября 2022 г., № 208-З)</span>
+              </div>
+              <span>Закон</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>О порядке оказания медицинской помощи</strong>
+                <span>Постановление Минздрава РБ, 16 августа 2023 г., № 117 (ред. от 2 сентября 2025 г., № 94)</span>
+              </div>
+              <span>Порядок</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Санитарно-эпидемиологические требования к организациям, оказывающим медицинскую помощь</strong>
+                <span>Постановление Минздрава РБ, 05 июля 2017 г., № 73</span>
+              </div>
+              <span>СанПиН</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Специфические санитарно-эпидемиологические требования</strong>
+                <span>Постановление Совета Министров РБ, 3 марта 2020 г., № 130 (ред. от 2 февраля 2022 г., № 63)</span>
+              </div>
+              <span>СанПиН</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>О порядке обращения с медицинскими отходами</strong>
+                <span>Постановление Минздрава и Минприроды РБ, 2 сентября 2024 г., № 137/44</span>
+              </div>
+              <span>Отходы</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Требования к порядку проведения дезинфекционных, дезинсекционных и дератизационных мероприятий</strong>
+                <span>Постановление Минздрава РБ, 21 марта 2013 г., № 24</span>
+              </div>
+              <span>СанПиН</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Дезинфекция, предстерилизационная очистка и стерилизация медицинских изделий</strong>
+                <span>Приказ Минздрава РБ, 2 августа 2024 г., № 1065 (ред. от 28 февраля 2025 г., № 212)</span>
+              </div>
+              <span>Приказ</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Санитарные нормы и правила</strong>
+                <span>Постановление Минздрава РБ, 13 июля 2023 г., № 113</span>
+              </div>
+              <span>СанПиН</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>О порядке проведения диспансеризации взрослого населения</strong>
+                <span>Постановление Минздрава РБ, 16 декабря 2024 г., № 173</span>
+              </div>
+              <span>Порядок</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Формы первичной учётной медицинской документации</strong>
+                <span>Приказ Минздрава РБ, 15 декабря 2023 г., № 1853 · также в разделе «Протоколы»</span>
+              </div>
+              <span>Документация</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+
+            <h3 class="lib-subhead">Инфекции, прививки, ВИЧ</h3>
+            <div class="doc-row">
+              <div>
+                <strong>Предотвращение кишечных инфекций</strong>
+                <span>Постановление Минздрава РБ, 25 января 2023 г., № 14</span>
+              </div>
+              <span>СанПиН</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>О профилактических прививках</strong>
+                <span>Постановление Минздрава РБ, 17 мая 2018 г., № 42 (ред. от 13 января 2025 г., № 3)</span>
+              </div>
+              <span>Прививки</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Инструкция по тактике проведения профилактических прививок</strong>
+                <span>Приказ Минздрава РБ, 27 февраля 2014 г., № 191</span>
+              </div>
+              <span>Инструкция</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Санитарно-эпидемиологические требования к проведению профилактических прививок</strong>
+                <span>Постановление Минздрава РБ, 10 января 2025 г., № 1</span>
+              </div>
+              <span>СанПиН</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Профилактика социально опасных заболеваний и ВИЧ-инфекции</strong>
+                <span>Инструкция · в перечне заказчика текст пункта 22 обрывается — реквизиты уточнить</span>
+              </div>
+              <span>Инструкция</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Предотвращение парентеральных вирусных гепатитов и ВИЧ-инфекции</strong>
+                <span>Постановление Минздрава РБ, 1 марта 2024 г., № 41</span>
+              </div>
+              <span>СанПиН</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Предотвращение гриппа и инфекции COVID-19</strong>
+                <span>Постановление Минздрава РБ, 29 декабря 2012 г., № 217 (ред. от 20 мая 2022 г., № 45)</span>
+              </div>
+              <span>СанПиН</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>Медицинское освидетельствование на заболевания, опасные для здоровья населения, и ВИЧ</strong>
+                <span>Постановление Минздрава РБ, 24 июля 2012 г., № 112 (ред. от 19 августа 2025 г., № 83)</span>
+              </div>
+              <span>Порядок</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+
+            <h3 class="lib-subhead">Антисептика и стерилизация</h3>
+            <div class="doc-row">
+              <div>
+                <strong>Гигиеническая и хирургическая антисептика кожи рук медицинского персонала</strong>
+                <span>Инструкция Главного государственного санитарного врача РБ, 05 сентября 2001 г., № 113-0801</span>
+              </div>
+              <span>Инструкция</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+            <div class="doc-row">
+              <div>
+                <strong>О некоторых вопросах проведения стерилизации</strong>
+                <span>Постановление Минздрава РБ, 10 декабря 2014 г., № 89 (ред. от 19 августа 2025 г., № 83)</span>
+              </div>
+              <span>Стерилизация</span>
+              <span>PDF</span>
+              <a class="btn btn-ghost" href="#">Открыть</a>
+            </div>
+          </div>
+
+          <!-- 04 Статьи -->
+          <div class="lib-panel" data-panel="articles" hidden>
+            <header class="lib-panel-head">
+              <p class="eyebrow">04</p>
+              <h2>Статьи</h2>
+              <p class="muted">Публикации членов общества и материалы заседаний в текстовом виде.</p>
+            </header>
+            <div class="empty-block">
+              <h3>Раздел готовится</h3>
+              <p>Здесь появится лента статей. Материалы можно будет прислать секретарю для размещения.</p>
+            </div>
+          </div>
+
+          <!-- 05 Рекомендации ФАР -->
+          <div class="lib-panel" data-panel="far" hidden>
+            <header class="lib-panel-head">
+              <p class="eyebrow">05</p>
+              <h2>Рекомендации ФАР</h2>
+              <p class="muted">Клинические рекомендации Федерации анестезиологов и реаниматологов. Размещение — при наличии права на публикацию.</p>
+            </header>
+            <div class="empty-block">
+              <h3>Раздел готовится</h3>
+              <p>Каталог рекомендаций ФАР. Пока заглушка под согласованный список файлов.</p>
+            </div>
+          </div>
+
+          <!-- 06 Видеоархив -->
+          <div class="lib-panel" data-panel="video" hidden>
+            <header class="lib-panel-head">
+              <p class="eyebrow">06</p>
+              <h2>Видеоархив</h2>
+              <p class="muted">Четыре подраздела. Плееры и ссылки появятся после загрузки материалов.</p>
+            </header>
+
+            <div class="video-grid">
+              <article class="video-card" id="video-learn">
+                <span class="lib-num">6.1</span>
+                <h3>Обучающее видео</h3>
+                <p>Учебные ролики и демонстрации процедур для врачей АиР.</p>
+                <p class="note">Пока пусто · место под плейлист</p>
+              </article>
+              <article class="video-card" id="video-meetings">
+                <span class="lib-num">6.2</span>
+                <h3>Заседания БОАР</h3>
+                <p>Записи заседаний общества: доклады и дискуссии.</p>
+                <p class="note">Пока пусто · место под архив заседаний</p>
+              </article>
+              <article class="video-card" id="video-congress">
+                <span class="lib-num">6.3</span>
+                <h3>Съезды БОАР</h3>
+                <p>Материалы съездов анестезиологов-реаниматологов.</p>
+                <p class="note">Пока пусто · место под записи съездов</p>
+              </article>
+              <article class="video-card" id="video-lectures">
+                <span class="lib-num">6.4</span>
+                <h3>Лекции</h3>
+                <p>Отдельные лекции и циклы непрерывного образования.</p>
+                <p class="note">Пока пусто · место под лекторий</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="copyright">
+        <a href="index.html" style="color:#c5d4ce">← На главную макета</a>
+        <span>БОАР · библиотека · 6 разделов</span>
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

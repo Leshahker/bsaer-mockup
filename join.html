@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Вступление — БОАР</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,500;0,7..72,600;0,7..72,700;1,7..72,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="proto">
+    <div class="wrap">
+      <span><strong>Макет для согласования</strong> · форма никуда не отправляет данные</span>
+      <span>Членство</span>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="index.html">
+        <img class="logo-mark" src="img/logo.png?v=2" width="48" height="48" alt="" />
+        <span class="logo-text"><b>БОАР</b><span>Общество АиР</span></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu aria-expanded="false" aria-label="Меню">☰</button>
+      <nav class="primary">
+        <a href="index.html">Главная</a>
+        <a href="about.html">Общество</a>
+        <a href="events.html">События</a>
+        <a href="library.html">Библиотека</a>
+        <a href="patients.html">Пациентам</a>
+      </nav>
+      <a class="btn btn-ghost header-cta" href="/cabinet">Кабинет</a>
+      <a class="btn header-cta" href="join.html">Вступить</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="wrap">
+        <p class="crumbs"><a href="index.html">Главная</a> / Вступление</p>
+        <p class="eyebrow">Членство</p>
+        <h1>Вступить в общество</h1>
+        <p class="lead">Не письмо на admin@bsaer.org, а понятный путь: статус врача, заявка, взнос. Сумму взноса подставит казначей.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="wrap two">
+        <div class="steps">
+          <div class="step"><i>1</i><div><h3>Подтвердить статус</h3><p class="muted">Членство для врачей-анестезиологов-реаниматологов. Укажите место работы и специальность.</p></div></div>
+          <div class="step"><i>2</i><div><h3>Отправить заявку</h3><p class="muted">Секретарь свяжется по почте. На боевом сайте — антиспам и согласие на обработку данных.</p></div></div>
+          <div class="step"><i>3</i><div><h3>Регистрационный взнос</h3><p class="muted">Реквизиты и размер взноса — отдельным блоком, без «напишите нам». Здесь заглушка.</p></div></div>
+        </div>
+
+        <div>
+        <form class="form" data-join-form>
+          <div class="form-row">
+            <label>Фамилия<input name="last" required placeholder="Иванов" /></label>
+            <label>Имя<input name="first" required placeholder="Иван" /></label>
+          </div>
+          <label>Отчество<input name="middle" placeholder="при наличии" /></label>
+          <label>Место работы<input name="work" required placeholder="Учреждение здравоохранения, город" /></label>
+          <label>Должность / категория<input name="role" placeholder="Врач-анестезиолог-реаниматолог" /></label>
+          <label>E-mail<input type="email" name="email" required placeholder="name@hospital.by" /></label>
+          <label>Телефон<input type="tel" name="phone" placeholder="+375 …" /></label>
+          <label class="check"><input type="checkbox" required /> Согласен на обработку персональных данных для рассмотрения заявки на членство. Политика появится на боевом сайте.</label>
+          <button class="btn btn-lg" type="submit">Отправить заявку</button>
+          <p class="note">Макет: после отправки данные никуда не уходят.</p>
+        </form>
+        <div class="side-panel" data-join-done hidden>
+          <h3>Заявка принята (макет)</h3>
+          <p>На настоящем сайте здесь будет подтверждение и письмо секретарю. Сейчас ничего не отправлено.</p>
+          <a class="btn" href="index.html">Вернуться на главную</a>
+        </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="copyright">
+        <a href="index.html" style="color:#c5d4ce">← На главную макета</a>
+        <span>БОАР · макет вступления</span>
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

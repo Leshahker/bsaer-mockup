@@ -1,0 +1,17 @@
+{
+  "name": "bsaer-mockup",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Макет сайта БОАР + локальный кабинет с чатом",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "express-session": "^1.18.1"
+  }
+}

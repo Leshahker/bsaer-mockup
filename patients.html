@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Пациентам — БОАР</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,500;0,7..72,600;0,7..72,700;1,7..72,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="proto">
+    <div class="wrap">
+      <span><strong>Макет для согласования</strong> · тексты можно смягчить с коллегами</span>
+      <span>Пациентам</span>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="index.html">
+        <img class="logo-mark" src="img/logo.png?v=2" width="48" height="48" alt="" />
+        <span class="logo-text"><b>БОАР</b><span>Общество АиР</span></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu aria-expanded="false" aria-label="Меню">☰</button>
+      <nav class="primary">
+        <a href="index.html">Главная</a>
+        <a href="about.html">Общество</a>
+        <a href="events.html">События</a>
+        <a href="library.html">Библиотека</a>
+        <a href="patients.html" aria-current="page">Пациентам</a>
+      </nav>
+      <a class="btn btn-ghost header-cta" href="/cabinet">Кабинет</a>
+      <a class="btn header-cta" href="join.html">Вступить</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="wrap">
+        <p class="crumbs"><a href="index.html">Главная</a> / Пациентам</p>
+        <p class="eyebrow">Для пациентов и родственников</p>
+        <h1>Вам предстоит анестезия</h1>
+        <p class="lead">Спокойные ответы на частые вопросы. Решение о виде обезболивания принимает ваш анестезиолог после осмотра.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="wrap two">
+        <div class="accordion">
+          <details open>
+            <summary>Стоит ли бояться наркоза?</summary>
+            <p>Современная анестезия — это контролируемая процедура. Перед операцией врач знакомится с анализами, хроническими болезнями и лекарствами. Вопросы и тревогу лучше проговорить на предоперационном осмотре.</p>
+          </details>
+          <details>
+            <summary>Чем общая анестезия отличается от спинальной?</summary>
+            <p>При общей анестезии вы спите. При спинальной и эпидуральной обезболивается нижняя часть тела, сознание обычно сохранено. Что подойдёт именно вам, зависит от операции и состояния здоровья.</p>
+          </details>
+          <details>
+            <summary>Что сказать анестезиологу заранее?</summary>
+            <p>Аллергии, астма, апноэ сна, проблемы с сердцем, зубные протезы, беременность, все таблетки и БАДы — в том числе «сердечные» и обезболивающие. Не стесняйтесь переспрашивать.</p>
+          </details>
+          <details>
+            <summary>Можно ли задать вопрос обществу?</summary>
+            <p>Общество не ставит диагнозы по переписке. Форма ниже — для общих вопросов о подготовке. Срочное состояние — скорая помощь и лечащий врач.</p>
+          </details>
+        </div>
+
+        <div>
+          <p class="warn">Это просветительский текст, не консультация и не направление на операцию. «Найти своего врача» в меню старого сайта никуда не вело — в макете пункта нет, пока нет реального справочника с согласием коллег.</p>
+          <form class="form" style="margin-top:20px" onsubmit="event.preventDefault(); this.hidden = true; this.nextElementSibling.hidden = false;">
+            <h3>Общий вопрос</h3>
+            <label>Имя<input required /></label>
+            <label>E-mail<input type="email" required /></label>
+            <label>Вопрос<textarea required placeholder="Без диагнозов и снимков в приложении"></textarea></label>
+            <label class="check"><input type="checkbox" required /> Понимаю, что это не медицинская консультация, и согласен на обработку обращения.</label>
+            <button class="btn" type="submit">Отправить</button>
+          </form>
+          <div class="side-panel" hidden>
+            <h3>Сообщение не ушло</h3>
+            <p>Макет. На настоящем сайте письмо уйдёт секретарю с антиспамом, без публикации на странице.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="copyright">
+        <a href="index.html" style="color:#c5d4ce">← На главную макета</a>
+        <span>БОАР · макет для пациентов</span>
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
