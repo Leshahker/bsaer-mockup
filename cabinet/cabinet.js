@@ -1,3 +1,11 @@
+const USERS = {
+  admin: { password: "admin", name: "Администратор", role: "admin" },
+  doktor: { password: "doktor", name: "Демо-врач", role: "member" },
+};
+
+const STORAGE_USER = "boar-demo-user";
+const STORAGE_MESSAGES = "boar-demo-messages";
+
 const loginPanel = document.getElementById("login-panel");
 const chatPanel = document.getElementById("chat-panel");
 const topUser = document.getElementById("top-user");
@@ -10,19 +18,19 @@ const messageInput = document.getElementById("message-input");
 const messagesEl = document.getElementById("messages");
 
 let currentUser = null;
-let pollTimer = null;
 
-async function api(url, options = {}) {
-  const res = await fetch(url, {
-    headers: { "Content-Type": "application/json", ...(options.headers || {}) },
-    credentials: "same-origin",
-    ...options,
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    throw new Error(data.error || "Ошибка запроса");
+function loadMessages() {
+  try {
+    const raw = localStorage.getItem(STORAGE_MESSAGES);
+    const data = raw ? JSON.parse(raw) : [];
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
   }
-  return data;
+}
+
+function saveMessages(messages) {
+  localStorage.setItem(STORAGE_MESSAGES, JSON.stringify(messages));
 }
 
 function formatTime(iso) {
@@ -36,6 +44,14 @@ function formatTime(iso) {
   } catch {
     return "";
   }
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 }
 
 function renderMessages(messages) {
@@ -67,90 +83,72 @@ function renderMessages(messages) {
   }
 }
 
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
-
 function showLogin() {
   currentUser = null;
+  localStorage.removeItem(STORAGE_USER);
   loginPanel.hidden = false;
   chatPanel.hidden = true;
   topUser.hidden = true;
-  if (pollTimer) {
-    clearInterval(pollTimer);
-    pollTimer = null;
-  }
 }
 
 function showChat(user) {
   currentUser = user;
+  localStorage.setItem(STORAGE_USER, JSON.stringify(user));
   loginPanel.hidden = true;
   chatPanel.hidden = false;
   topUser.hidden = false;
   userName.textContent = user.name;
-  loadMessages();
-  if (pollTimer) clearInterval(pollTimer);
-  pollTimer = setInterval(loadMessages, 3000);
+  renderMessages(loadMessages());
+  messagesEl.scrollTop = messagesEl.scrollHeight;
 }
 
-async function loadMessages() {
-  try {
-    const data = await api("/api/messages");
-    renderMessages(data.messages || []);
-  } catch {
-    showLogin();
-  }
-}
-
-loginForm.addEventListener("submit", async (event) => {
+loginForm.addEventListener("submit", (event) => {
   event.preventDefault();
   loginError.hidden = true;
   const form = new FormData(loginForm);
-  try {
-    const data = await api("/api/login", {
-      method: "POST",
-      body: JSON.stringify({
-        login: form.get("login"),
-        password: form.get("password"),
-      }),
-    });
-    showChat(data.user);
-  } catch (err) {
-    loginError.textContent = err.message;
+  const login = String(form.get("login") || "").trim().toLowerCase();
+  const password = String(form.get("password") || "");
+  const account = USERS[login];
+
+  if (!account || account.password !== password) {
+    loginError.textContent = "Неверный логин или пароль";
     loginError.hidden = false;
+    return;
   }
+
+  showChat({ login, name: account.name, role: account.role });
 });
 
-logoutBtn.addEventListener("click", async () => {
-  await api("/api/logout", { method: "POST", body: "{}" });
+logoutBtn.addEventListener("click", () => {
   showLogin();
 });
 
-composer.addEventListener("submit", async (event) => {
+composer.addEventListener("submit", (event) => {
   event.preventDefault();
   const text = messageInput.value.trim();
-  if (!text) return;
+  if (!text || !currentUser) return;
+
+  const messages = loadMessages();
+  messages.push({
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    text,
+    author: currentUser.name,
+    login: currentUser.login,
+    createdAt: new Date().toISOString(),
+  });
+  saveMessages(messages);
   messageInput.value = "";
-  try {
-    await api("/api/messages", {
-      method: "POST",
-      body: JSON.stringify({ text }),
-    });
-    await loadMessages();
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-  } catch (err) {
-    messageInput.value = text;
-    alert(err.message);
-  }
+  renderMessages(messages);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
 });
 
-api("/api/me")
-  .then((data) => {
-    if (data.user) showChat(data.user);
-    else showLogin();
-  })
-  .catch(showLogin);
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_USER) || "null");
+  if (saved && saved.login && USERS[saved.login]) {
+    showChat(saved);
+  } else {
+    showLogin();
+  }
+} catch {
+  showLogin();
+}
