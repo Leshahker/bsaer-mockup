@@ -57,21 +57,103 @@ def add_bg(slide, color=PAPER):
     spTree.insert(2, sp)
 
 
-def add_footer(slide, page, total=12):
-    add_textbox(slide, Inches(0.5), Inches(7.05), Inches(8), Inches(0.3), "БОАР · новый сайт общества", size=11, color=MUTED)
-    add_textbox(slide, Inches(11.2), Inches(7.05), Inches(1.6), Inches(0.3), f"{page} / {total}", size=11, color=MUTED, align=PP_ALIGN.RIGHT)
+def add_footer(slide, page, total=12, light=True):
+    color = RGBColor(0x8A, 0xA1, 0x99) if not light else MUTED
+    add_textbox(slide, Inches(0.5), Inches(7.05), Inches(8), Inches(0.3), "БОАР · новый сайт общества", size=11, color=color)
+    add_textbox(slide, Inches(11.2), Inches(7.05), Inches(1.6), Inches(0.3), f"{page} / {total}", size=11, color=color, align=PP_ALIGN.RIGHT)
 
 
 def fit_image(slide, path, left, top, max_w, max_h):
     if not path.exists():
         return None
     pic = slide.shapes.add_picture(str(path), left, top)
-    # scale to fit
     w, h = pic.width, pic.height
     scale = min(max_w / w, max_h / h)
     pic.width = int(w * scale)
     pic.height = int(h * scale)
     return pic
+
+
+def add_screenshot_slide(prs, blank, eyebrow, title, image_path, url, page, total):
+    """Screenshot on dark mat inside a browser-like frame — no blend with cream site bg."""
+    s = prs.slides.add_slide(blank)
+    add_bg(s, PINE_DARK)
+
+    add_textbox(s, Inches(0.55), Inches(0.28), Inches(12), Inches(0.28), eyebrow, size=12, bold=True, color=COPPER)
+    add_textbox(s, Inches(0.55), Inches(0.55), Inches(12), Inches(0.45), title, size=22, bold=True, color=WHITE, font="Georgia")
+
+    # Outer mat / window
+    frame_left = Inches(0.55)
+    frame_top = Inches(1.15)
+    frame_w = Inches(12.2)
+    frame_h = Inches(5.55)
+    frame = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, frame_left, frame_top, frame_w, frame_h)
+    fill_shape(frame, RGBColor(0x18, 0x2E, 0x2A))
+    frame.line.color.rgb = RGBColor(0x2F, 0x4A, 0x44)
+    frame.adjustments[0] = 0.04
+
+    # Chrome bar
+    chrome_h = Inches(0.42)
+    chrome = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, frame_left, frame_top, frame_w, chrome_h)
+    fill_shape(chrome, RGBColor(0x24, 0x3C, 0x37))
+    chrome.line.fill.background()
+
+    # Traffic lights
+    for i, color in enumerate([RGBColor(0xC7, 0x6B, 0x5A), RGBColor(0xC9, 0xA0, 0x5C), RGBColor(0x5E, 0x9A, 0x72)]):
+        dot = s.shapes.add_shape(
+            MSO_SHAPE.OVAL,
+            frame_left + Inches(0.18 + i * 0.28),
+            frame_top + Inches(0.13),
+            Inches(0.16),
+            Inches(0.16),
+        )
+        fill_shape(dot, color)
+
+    # URL pill
+    url_left = frame_left + Inches(1.3)
+    url_w = frame_w - Inches(1.6)
+    url_bar = s.shapes.add_shape(
+        MSO_SHAPE.ROUNDED_RECTANGLE,
+        url_left,
+        frame_top + Inches(0.08),
+        url_w,
+        Inches(0.26),
+    )
+    fill_shape(url_bar, RGBColor(0x12, 0x22, 0x1F))
+    url_bar.line.fill.background()
+    url_bar.adjustments[0] = 0.5
+    add_textbox(
+        s,
+        url_left + Inches(0.15),
+        frame_top + Inches(0.08),
+        url_w - Inches(0.2),
+        Inches(0.26),
+        url,
+        size=10,
+        color=RGBColor(0xA8, 0xB9, 0xB3),
+    )
+
+    # Image area inside frame
+    pad = Inches(0.12)
+    img_left = frame_left + pad
+    img_top = frame_top + chrome_h + pad
+    max_w = frame_w - pad * 2
+    max_h = frame_h - chrome_h - pad * 2
+
+    pic = fit_image(s, image_path, img_left, img_top, max_w, max_h)
+    if pic is not None:
+        # center horizontally in the frame content area
+        pic.left = int(img_left + (max_w - pic.width) / 2)
+        pic.top = int(img_top)
+
+        # thin border rectangle matching image size
+        border = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, pic.left, pic.top, pic.width, pic.height)
+        border.fill.background()
+        border.line.color.rgb = RGBColor(0x3A, 0x55, 0x4E)
+        border.line.width = Pt(1.25)
+
+    add_footer(s, page, total, light=False)
+    return s
 
 
 def main():
@@ -111,13 +193,14 @@ def main():
         add_textbox(s, x + Inches(0.25), y + Inches(1.1), Inches(5.3), Inches(0.7), text, size=14, color=MUTED)
     add_footer(s, 2, total)
 
-    # 3 Home screenshot
-    s = prs.slides.add_slide(blank)
-    add_bg(s)
-    add_textbox(s, Inches(0.5), Inches(0.25), Inches(12), Inches(0.3), "ГЛАВНАЯ", size=12, bold=True, color=COPPER)
-    add_textbox(s, Inches(0.5), Inches(0.55), Inches(12), Inches(0.5), "Ближайшее заседание — сразу в первом экране", size=24, bold=True, color=INK, font="Georgia")
-    fit_image(s, SHOTS / "01-home.png", Inches(0.8), Inches(1.2), Inches(11.7), Inches(5.5))
-    add_footer(s, 3, total)
+    # 3–10 screenshot slides with framed windows
+    add_screenshot_slide(
+        prs, blank, "ГЛАВНАЯ",
+        "Ближайшее заседание — сразу в первом экране",
+        SHOTS / "01-home.png",
+        "leshahker.github.io/bsaer-mockup/",
+        3, total,
+    )
 
     # 4 Old vs new
     s = prs.slides.add_slide(blank)
@@ -138,56 +221,52 @@ def main():
     add_textbox(s, Inches(7.15), Inches(2.4), Inches(5.2), Inches(3.8), new, size=15, color=INK)
     add_footer(s, 4, total)
 
-    # 5 Library screenshot
-    s = prs.slides.add_slide(blank)
-    add_bg(s)
-    add_textbox(s, Inches(0.5), Inches(0.25), Inches(12), Inches(0.3), "БИБЛИОТЕКА", size=12, bold=True, color=COPPER)
-    add_textbox(s, Inches(0.5), Inches(0.55), Inches(12), Inches(0.5), "Шесть разделов: книги, протоколы, санэпид, статьи, ФАР, видео", size=22, bold=True, color=INK, font="Georgia")
-    fit_image(s, SHOTS / "02-library.png", Inches(0.8), Inches(1.2), Inches(11.7), Inches(5.5))
-    add_footer(s, 5, total)
+    protocols = SHOTS / "08-library-protocols.png"
+    if not protocols.exists():
+        protocols = SHOTS / "02-library.png"
 
-    # 6 Protocols detail
-    s = prs.slides.add_slide(blank)
-    add_bg(s)
-    add_textbox(s, Inches(0.5), Inches(0.25), Inches(12), Inches(0.3), "ПРОТОКОЛЫ И САНЭПИД", size=12, bold=True, color=COPPER)
-    add_textbox(s, Inches(0.5), Inches(0.55), Inches(12), Inches(0.5), "Документы разложены так, как ими пользуются врачи", size=22, bold=True, color=INK, font="Georgia")
-    img = SHOTS / "08-library-protocols.png"
-    if not img.exists():
-        img = SHOTS / "02-library.png"
-    fit_image(s, img, Inches(0.8), Inches(1.2), Inches(11.7), Inches(5.5))
-    add_footer(s, 6, total)
-
-    # 7 Events
-    s = prs.slides.add_slide(blank)
-    add_bg(s)
-    add_textbox(s, Inches(0.5), Inches(0.25), Inches(12), Inches(0.3), "СОБЫТИЯ", size=12, bold=True, color=COPPER)
-    add_textbox(s, Inches(0.5), Inches(0.55), Inches(12), Inches(0.5), "Календарь ближайших заседаний и архив съездов", size=22, bold=True, color=INK, font="Georgia")
-    fit_image(s, SHOTS / "03-events.png", Inches(0.8), Inches(1.2), Inches(11.7), Inches(5.5))
-    add_footer(s, 7, total)
-
-    # 8 Join + patients side by side conceptually - two slides better
-    s = prs.slides.add_slide(blank)
-    add_bg(s)
-    add_textbox(s, Inches(0.5), Inches(0.25), Inches(12), Inches(0.3), "ВСТУПЛЕНИЕ", size=12, bold=True, color=COPPER)
-    add_textbox(s, Inches(0.5), Inches(0.55), Inches(12), Inches(0.5), "Путь в членство: статус → заявка → взнос", size=22, bold=True, color=INK, font="Georgia")
-    fit_image(s, SHOTS / "05-join.png", Inches(0.8), Inches(1.2), Inches(11.7), Inches(5.5))
-    add_footer(s, 8, total)
-
-    # 9 Patients
-    s = prs.slides.add_slide(blank)
-    add_bg(s)
-    add_textbox(s, Inches(0.5), Inches(0.25), Inches(12), Inches(0.3), "ПАЦИЕНТАМ", size=12, bold=True, color=COPPER)
-    add_textbox(s, Inches(0.5), Inches(0.55), Inches(12), Inches(0.5), "Спокойные ответы без ложных обещаний", size=22, bold=True, color=INK, font="Georgia")
-    fit_image(s, SHOTS / "04-patients.png", Inches(0.8), Inches(1.2), Inches(11.7), Inches(5.5))
-    add_footer(s, 9, total)
-
-    # 10 Cabinet
-    s = prs.slides.add_slide(blank)
-    add_bg(s)
-    add_textbox(s, Inches(0.5), Inches(0.25), Inches(12), Inches(0.3), "КАБИНЕТ ЧЛЕНА", size=12, bold=True, color=COPPER)
-    add_textbox(s, Inches(0.5), Inches(0.55), Inches(12), Inches(0.5), "Демо личного кабинета — задел под закрытую зону и чат", size=22, bold=True, color=INK, font="Georgia")
-    fit_image(s, SHOTS / "06-cabinet.png", Inches(0.8), Inches(1.2), Inches(11.7), Inches(5.5))
-    add_footer(s, 10, total)
+    add_screenshot_slide(
+        prs, blank, "БИБЛИОТЕКА",
+        "Шесть разделов: книги, протоколы, санэпид, статьи, ФАР, видео",
+        SHOTS / "02-library.png",
+        "leshahker.github.io/bsaer-mockup/library.html",
+        5, total,
+    )
+    add_screenshot_slide(
+        prs, blank, "ПРОТОКОЛЫ И САНЭПИД",
+        "Документы разложены так, как ими пользуются врачи",
+        protocols,
+        "leshahker.github.io/bsaer-mockup/library.html#protocols",
+        6, total,
+    )
+    add_screenshot_slide(
+        prs, blank, "СОБЫТИЯ",
+        "Календарь ближайших заседаний и архив съездов",
+        SHOTS / "03-events.png",
+        "leshahker.github.io/bsaer-mockup/events.html",
+        7, total,
+    )
+    add_screenshot_slide(
+        prs, blank, "ВСТУПЛЕНИЕ",
+        "Путь в членство: статус → заявка → взнос",
+        SHOTS / "05-join.png",
+        "leshahker.github.io/bsaer-mockup/join.html",
+        8, total,
+    )
+    add_screenshot_slide(
+        prs, blank, "ПАЦИЕНТАМ",
+        "Спокойные ответы без ложных обещаний",
+        SHOTS / "04-patients.png",
+        "leshahker.github.io/bsaer-mockup/patients.html",
+        9, total,
+    )
+    add_screenshot_slide(
+        prs, blank, "КАБИНЕТ ЧЛЕНА",
+        "Демо личного кабинета — задел под закрытую зону и чат",
+        SHOTS / "06-cabinet.png",
+        "leshahker.github.io/bsaer-mockup/cabinet/",
+        10, total,
+    )
 
     # 11 Advantages
     s = prs.slides.add_slide(blank)
