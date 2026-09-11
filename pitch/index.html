@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>БОАР — презентация нового сайта</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,500;0,7..72,600;0,7..72,700;1,7..72,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #17241f;
+      --ink-soft: #3e4f48;
+      --muted: #66756e;
+      --line: #d8d0c4;
+      --paper: #f3eee4;
+      --sheet: #faf7f1;
+      --pine: #1c3d38;
+      --pine-2: #254c46;
+      --pine-3: #0f2824;
+      --copper: #9a6b3d;
+      --copper-2: #b88955;
+      --white: #fffcf7;
+      --bad: #8a3a2a;
+      --ok: #2b5c45;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      color: var(--ink);
+      background: var(--pine-3);
+      font-family: "Manrope", system-ui, sans-serif;
+      overflow: hidden;
+    }
+    h1, h2, h3 {
+      font-family: "Literata", Georgia, serif;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      margin: 0;
+      font-weight: 600;
+    }
+    .deck {
+      height: 100%;
+      position: relative;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: clamp(28px, 5vw, 64px);
+      background:
+        radial-gradient(ellipse at top right, rgba(154, 107, 61, 0.12), transparent 42%),
+        linear-gradient(160deg, #ebe4d7 0%, var(--paper) 55%, #e4ddd0 100%);
+      color: var(--ink);
+    }
+    .slide.is-on { display: grid; align-content: center; animation: in 0.35s ease; }
+    .slide.dark {
+      background:
+        radial-gradient(ellipse at bottom left, rgba(184, 137, 85, 0.18), transparent 45%),
+        linear-gradient(160deg, var(--pine-3), var(--pine));
+      color: #e7eeeb;
+    }
+    .slide.dark .lead { color: #c5d4ce; }
+    .slide.dark .eyebrow { color: var(--copper-2); }
+    @keyframes in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 16px;
+    }
+    h1 { font-size: clamp(36px, 6vw, 64px); max-width: 16ch; }
+    h2 { font-size: clamp(28px, 4.5vw, 48px); max-width: 22ch; margin-bottom: 18px; }
+    .lead {
+      font-size: clamp(17px, 2vw, 22px);
+      line-height: 1.45;
+      color: var(--ink-soft);
+      max-width: 42rem;
+      margin: 18px 0 0;
+    }
+    .brand {
+      font-family: "Literata", Georgia, serif;
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 28px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(16px, 3vw, 28px);
+      margin-top: 28px;
+      max-width: 1100px;
+    }
+    .card {
+      background: var(--sheet);
+      border: 1px solid var(--line);
+      padding: 22px 24px;
+      min-height: 140px;
+    }
+    .dark .card {
+      background: rgba(255,252,247,0.06);
+      border-color: rgba(255,255,255,0.12);
+      color: #e7eeeb;
+    }
+    .card h3 { font-size: 22px; margin-bottom: 8px; }
+    .card p { margin: 0; color: var(--ink-soft); line-height: 1.45; }
+    .dark .card p { color: #c5d4ce; }
+    .card .num {
+      font-family: "Literata", Georgia, serif;
+      color: var(--copper);
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+      max-width: 1100px;
+    }
+    .col {
+      border: 1px solid var(--line);
+      padding: 22px;
+      background: var(--sheet);
+    }
+    .col.old { border-top: 4px solid var(--bad); }
+    .col.new { border-top: 4px solid var(--ok); }
+    .col h3 { font-size: 20px; margin-bottom: 14px; }
+    .col ul { margin: 0; padding-left: 18px; color: var(--ink-soft); }
+    .col li { margin: 8px 0; }
+    .list {
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+      max-width: 720px;
+    }
+    .list li {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 14px;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+      align-items: start;
+    }
+    .dark .list li { border-color: rgba(255,255,255,0.12); }
+    .list b {
+      font-family: "Literata", Georgia, serif;
+      color: var(--copper);
+      font-size: 18px;
+    }
+    .list span { color: var(--ink-soft); }
+    .dark .list span { color: #c5d4ce; }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 14px 20px;
+      background: var(--pine);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      border: 1px solid transparent;
+    }
+    .dark .btn { background: var(--white); color: var(--pine); }
+    .btn-ghost {
+      background: transparent;
+      color: inherit;
+      border-color: currentColor;
+      opacity: 0.85;
+    }
+    .footer-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      background: rgba(15, 40, 36, 0.92);
+      color: #c5d4ce;
+      font-size: 13px;
+      z-index: 5;
+    }
+    .footer-bar button {
+      font: inherit;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: var(--white);
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    .footer-bar button:hover { background: rgba(255,255,255,0.08); }
+    .progress {
+      position: fixed;
+      top: 0; left: 0; height: 3px;
+      background: var(--copper);
+      z-index: 6;
+      width: 0;
+      transition: width 0.25s ease;
+    }
+    .hint { margin-top: 28px; font-size: 14px; color: var(--muted); }
+    .dark .hint { color: #8aa199; }
+    .quote {
+      font-family: "Literata", Georgia, serif;
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-style: italic;
+      font-weight: 500;
+      max-width: 18ch;
+      line-height: 1.25;
+    }
+    @media (max-width: 800px) {
+      .grid-2, .compare { grid-template-columns: 1fr; }
+      .slide { align-content: start; overflow: auto; padding-bottom: 80px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="deck" id="deck">
+
+    <section class="slide dark is-on" data-slide>
+      <div class="brand">БОАР</div>
+      <p class="eyebrow">Презентация для руководства общества</p>
+      <h1>Новый сайт общества как рабочий инструмент врача</h1>
+      <p class="lead">Не «ещё одна витрина», а понятная точка входа: заседания, документы, обучение, вступление и кабинет члена.</p>
+      <p class="hint">Стрелки ← → · пробел · клик по кнопкам внизу</p>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Зачем менять</p>
+      <h2>Что нужно профессору и практикующему врачу</h2>
+      <div class="grid-2">
+        <article class="card"><div class="num">01</div><h3>Быстро найти заседание</h3><p>Дата, зал, программа — без поиска по ленте новостей.</p></article>
+        <article class="card"><div class="num">02</div><h3>Открыть нужный документ</h3><p>Протокол, санэпид, ФАР — по разделам, а не «где-то в меню».</p></article>
+        <article class="card"><div class="num">03</div><h3>Показать общество коллегам</h3><p>Сайт, который не стыдно открыть на лекции и на съезде.</p></article>
+        <article class="card"><div class="num">04</div><h3>Принять нового члена</h3><p>Понятный путь заявки вместо письма «куда-нибудь на admin@».</p></article>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Текущий bsaer.org</p>
+      <h2>Старый сайт держит контент, но тормозит работу</h2>
+      <ul class="list">
+        <li><b>01</b><span>Лента новостей смешивает заседания, поздравления и анонсы — ближайшее событие не всегда на первом плане.</span></li>
+        <li><b>02</b><span>Библиотека по типам есть, но без ясной структуры протоколов / санэпида / ФАР / видеоархива.</span></li>
+        <li><b>03</b><span>Главная перегружена блоками; часть пунктов (в т.ч. устаревшие смыслы) не ведёт к полезному действию.</span></li>
+        <li><b>04</b><span>Мобильная работа и современная типографика не соответствуют уровню общества 2026 года.</span></li>
+      </ul>
+    </section>
+
+    <section class="slide dark" data-slide>
+      <p class="eyebrow">Продукт</p>
+      <p class="quote">Один сайт — шесть рабочих зон для врача и одна витрина для пациента.</p>
+      <p class="lead" style="margin-top:28px">Макет уже собран, опубликован для согласования и готов к наполнению реальными файлами общества.</p>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Карта сайта</p>
+      <h2>Что получает общество</h2>
+      <div class="grid-2">
+        <article class="card"><div class="num">Главная</div><h3>Событие + общество</h3><p>Ближайшее заседание сразу в первом экране. Руководство и новости — без хаоса.</p></article>
+        <article class="card"><div class="num">События</div><h3>Календарь и архив</h3><p>Ближайшие отдельно, съезды в архиве. VIII и X больше не путаются в меню.</p></article>
+        <article class="card"><div class="num">Библиотека</div><h3>6 разделов каталога</h3><p>Книги · Протоколы · Санэпид · Статьи · Рекомендации ФАР · Видеоархив.</p></article>
+        <article class="card"><div class="num">Вступление</div><h3>Путь в 3 шага</h3><p>Статус → заявка → взнос. Форма готова под боевую отправку секретарю.</p></article>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Библиотека</p>
+      <h2>Документы разложены так, как ими пользуются</h2>
+      <ul class="list">
+        <li><b>01</b><span><strong>Книги</strong> — внешний каталог и место под согласованные издания общества.</span></li>
+        <li><b>02</b><span><strong>Протоколы</strong> — клинические протоколы и инструкции по оказанию помощи.</span></li>
+        <li><b>03</b><span><strong>Санэпид режим</strong> — НПА, СанПиН, стерилизация, прививки, противоэпидемика.</span></li>
+        <li><b>04–06</b><span><strong>Статьи, рекомендации ФАР, видеоархив</strong> (обучение, заседания, съезды, лекции).</span></li>
+      </ul>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Сравнение</p>
+      <h2>Старый сайт → новый продукт</h2>
+      <div class="compare">
+        <div class="col old">
+          <h3>Было</h3>
+          <ul>
+            <li>Новостная лента как главный экран</li>
+            <li>Документы «где-то в разделах»</li>
+            <li>Съезды и заседания вперемешку</li>
+            <li>Вступление через почту</li>
+            <li>Устаревший визуальный язык</li>
+            <li>Слабая мобильная читаемость</li>
+          </ul>
+        </div>
+        <div class="col new">
+          <h3>Стало</h3>
+          <ul>
+            <li>Действие и ближайшее заседание сразу</li>
+            <li>Каталог с 6 понятными разделами</li>
+            <li>Календарь + архив без путаницы</li>
+            <li>Форма членства и понятные шаги</li>
+            <li>Сдержанный «медицинский» дизайн</li>
+            <li>Адаптив под телефон и проектор</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Для аудиторий</p>
+      <h2>Один сайт — три сценария</h2>
+      <div class="grid-2">
+        <article class="card"><div class="num">Врач АиР</div><h3>Рабочий стол общества</h3><p>События, протоколы, санэпид, ФАР, видео. Минимум кликов до файла.</p></article>
+        <article class="card"><div class="num">Пациент</div><h3>Спокойные ответы</h3><p>Виды анестезии и подготовка к разговору с врачом — с дисклеймером, без ложных обещаний.</p></article>
+        <article class="card"><div class="num">Руководство</div><h3>Управление смыслом</h3><p>Чёткое «Общество», контакты, путь вступления, место под кабинет члена.</p></article>
+        <article class="card"><div class="num">Будущее</div><h3>Кабинет и чат</h3><p>Демо-интерфейс уже есть. Боевой сервер подключим на хостинге общества.</p></article>
+      </div>
+    </section>
+
+    <section class="slide dark" data-slide>
+      <p class="eyebrow">Преимущества продукта</p>
+      <h2>Почему это лучше «просто обновить WordPress»</h2>
+      <ul class="list">
+        <li><b>I</b><span>Архитектура под задачи службы АиР, а не под шаблон блога.</span></li>
+        <li><b>II</b><span>Контент заказчика уже разложен: протоколы и санэпид из рабочих перечней.</span></li>
+        <li><b>III</b><span>Готовность к хостингу общества: статика сейчас, сервер чата — следующим этапом.</span></li>
+        <li><b>IV</b><span>Можно согласовывать по экранам: каждый раздел читается отдельно.</span></li>
+      </ul>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Статус</p>
+      <h2>Что уже готово к показу</h2>
+      <div class="grid-2">
+        <article class="card"><div class="num">Живой макет</div><h3>Публичная ссылка</h3><p>Сайт открывается с телефона и ноутбука без установки.</p></article>
+        <article class="card"><div class="num">Библиотека</div><h3>Протоколы и санэпид</h3><p>Перечень из материалов заказчика уже в каталоге.</p></article>
+        <article class="card"><div class="num">Кабинет</div><h3>Демо входа и чата</h3><p>Интерфейс для членов — как задел под закрытую зону.</p></article>
+        <article class="card"><div class="num">Дальше</div><h3>Файлы и хостинг</h3><p>После доступа к файловому менеджеру — PDF, даты, состав руководства.</p></article>
+      </div>
+    </section>
+
+    <section class="slide dark" data-slide>
+      <div class="brand">БОАР</div>
+      <p class="eyebrow">Предложение</p>
+      <h1>Согласовать макет и перенести на хостинг общества</h1>
+      <p class="lead">Показать профессорам живой сайт, собрать правки по именам и документам, затем выложить вместо старой витрины.</p>
+      <div class="cta-row">
+        <a class="btn" href="../index.html" target="_blank" rel="noopener">Открыть сайт</a>
+        <a class="btn btn-ghost" href="https://leshahker.github.io/bsaer-mockup/" target="_blank" rel="noopener">Публичная ссылка</a>
+      </div>
+      <p class="hint">Макет для согласования · сентябрь 2026</p>
+    </section>
+  </div>
+
+  <div class="footer-bar">
+    <span id="counter">1 / 1</span>
+    <div style="display:flex;gap:8px">
+      <button type="button" id="prev" aria-label="Назад">←</button>
+      <button type="button" id="next" aria-label="Вперёд">→</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll("[data-slide]")];
+    const counter = document.getElementById("counter");
+    const progress = document.getElementById("progress");
+    let i = 0;
+
+    function show(n) {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      slides.forEach((s, idx) => s.classList.toggle("is-on", idx === i));
+      counter.textContent = `${i + 1} / ${slides.length}`;
+      progress.style.width = `${((i + 1) / slides.length) * 100}%`;
+    }
+
+    document.getElementById("prev").addEventListener("click", () => show(i - 1));
+    document.getElementById("next").addEventListener("click", () => show(i + 1));
+    document.addEventListener("keydown", (e) => {
+      if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) {
+        e.preventDefault();
+        show(i + 1);
+      }
+      if (["ArrowLeft", "PageUp"].includes(e.key)) {
+        e.preventDefault();
+        show(i - 1);
+      }
+      if (e.key === "Home") show(0);
+      if (e.key === "End") show(slides.length - 1);
+    });
+
+    show(0);
+  </script>
+</body>
+</html>
